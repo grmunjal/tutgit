@@ -9,7 +9,14 @@ Here I use:
 	- or using bash scripts based on the fact that processing one file is independent of processing another. 
 		- So we can split up the barcode file into segments and then process in parallel
 		- somewhat hard to see the gain from this on tutorial data because the sample number is small
-		
+	
+
+			
+
+Note: 
+A lot of intermediate files are created during the following process. I did not write commands to clean these up as I needed to
+go back a step or two sometimes during this implementation.
+   
 
 
 #---------- Requirements (and how to get them) ----------#
@@ -40,7 +47,7 @@ Binary for mac provided in the bin folder (replace with your own sys version if 
 
 #---- trimmomatic (v0.33)
 http://www.usadellab.org/cms/index.php?page=trimmomatic
-jar file provided in 
+jar file provided in  the bin folder
 
 
 
@@ -50,7 +57,7 @@ m x 2n table of read counts; m markers, n individuals (or samples), 2 alleles pe
 
 like so:
 
-marker1 ind1a1count ind1a2count.....indna1count indna2count 
+marker1 ind.1a1count ind.1a2count.....ind.na1count ind.na2count 
 
 
 
