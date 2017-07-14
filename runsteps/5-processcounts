@@ -1,0 +1,19 @@
+cd
+popnamestar="tutpop"
+
+bash $popnamestar/code/1-SNPcalling/5-processcounts/5-1-ref $popnamestar 1>>log/5-1-out.txt 2>>log/5-1-err.txt &
+
+wait
+
+bash $popnamestar/code/1-SNPcalling/5-processcounts/5-2-count $popnamestar 1>>log/5-2a-out.txt 2>>log/5-2a-err.txt &
+
+
+wait
+
+bash $popnamestar/code/1-SNPcalling/5-processcounts/5-3-join $popnamestar 1>>log/5-3-out.txt 2>>log/5-3-err.txt &
+
+wait
+
+bash $popnamestar/code/1-SNPcalling/5-processcounts/5-4-paste $popnamestar 1>>log/5-4-out.txt 2>>log/5-4-err.txt &
+
+wait

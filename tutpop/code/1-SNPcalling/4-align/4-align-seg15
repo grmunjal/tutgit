@@ -1,0 +1,80 @@
+#!/bin/bash -l
+#SBATCH -D /home/grmunjal/$1/data
+#SBATCH -o /home/grmunjal/$1/slurm-log/align-stdout-%j.txt
+#SBATCH -e /home/grmunjal/$1/slurm-log/align-stderr-%j.txt
+#SBATCH -J 4-align
+#SBATCH --nodes=1
+#SBATCH --mem 24000
+#SBATCH -c 6
+#SBATCH
+
+set -e
+set -u
+
+#------------------------------- 
+# Author: Gitanshu Munjal
+# Affiliation: Brummer Lab, UC Davis 
+# Date: 7/29/2016
+#
+# Requirements (easiest to install most of these via homebrew): 
+# (1) GBS-SNP-CROP scripts (https://github.com/halelab/GBS-SNP-CROP)
+# (2) USEARCH (http://www.drive5.com/usearch/download.html)
+# (3) PEAR (http://sco.h-its.org/exelixis/web/software/pear/)
+# (4) BWA (http://bio-bwa.sourceforge.net)
+# (5) SAMtools (http://samtools.sourceforge.net)
+# (6) BlastToSam.jar
+# (7) Java
+# (8) Blast
+# (9) BEDtools
+#------------------------------- 
+
+
+#---------- Initialize: Set some paths and variables 
+
+#Base directory
+base=$(pwd)/$1/data
+
+#Keyfile
+keyfile=$base/key-segment-ao
+
+#Path to reference
+refgen="/home/grmunjal/GenomeResources/RefGen/JCVI.Medtr.v4.20130313.fasta"
+
+#Load requirements
+#module load trimmomatic/0.33
+#module load usearch/7.0.1090
+#module load pear/0.9.8
+#module load bwa/0.7.9a
+#module load samtools/1.2
+#module load java/1.8
+#module load blast/2.2.29
+#module load bedtools/2.25
+#----------#----------#----------#----------#----------#----------#----------#----------
+
+
+cd $base
+cd parsed
+ulimit -n 8192
+cd demultiplexed/
+
+#---------- Step 5: Align with BWA-mem and processing with SAMtools (https://github.com/halelab/GBS-SNP-CROP/wiki)
+perl $base/../code/1-SNPcalling/GBS-SNP-CROP-5.pl \
+ -d SE \
+ -b $keyfile \
+ -ref $1-95-allvsearch-Reference.MockRef_Genome.fasta \
+ -Q 30 \
+ -q 0 \
+ -f 0 \
+ -F 2308 \
+ -t 16 \
+ -Opt "-m1 -s156"
+#----------#----------#----------#----------#----------#----------#----------#----------
+
+#---------- Step 6: Parse mpileup output and produce count files (modified from-https://github.com/halelab/GBS-SNP-CROP/wiki)
+perl $base/../code/1-SNPcalling/GBS-SNP-CROP-6.pl \
+-b $keyfile \
+-out SNPs_master_matrix.txt
+#----------#----------#----------#----------#----------#----------#----------#----------
+
+wait
+

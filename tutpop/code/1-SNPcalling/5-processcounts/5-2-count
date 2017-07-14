@@ -1,0 +1,41 @@
+#!/bin/bash -l
+#SBATCH -D /home/grmunjal/$1/data/parsed/demultiplexed/
+#SBATCH -o /home/grmunjal/$1/slurm-log/processcountsout-%j.txt
+#SBATCH -e /home/grmunjal/$1/slurm-log/processcountserr-%j.txt
+#SBATCH -J 2-start
+#SBATCH -c 6
+
+set -e
+set -u
+
+
+base=$(pwd)/$1/data
+
+
+cd $base/parsed/demultiplexed/
+
+count=0
+NR_CPUS=12
+
+for file in $1*.count.txt
+do
+#sort -n --parallel=6 -k 2 -o $file $file &
+sort -n  -k 2 -o $file $file &
+#let count+=6
+let count+=1
+[[ $((count%NR_CPUS)) -eq 0 ]] && wait
+done
+
+wait
+
+##Zero pad count files (remove previous versions)
+for file in $1*.count.txt
+do
+awk '{$2=sprintf("%09d", $2); print $0}' $file > $file.zpdc &
+let count+=1
+[[ $((count%NR_CPUS)) -eq 0 ]] && wait
+done
+
+wait
+
+echo "done sorting and zero padding"

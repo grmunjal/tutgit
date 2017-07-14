@@ -1,0 +1,32 @@
+#!/bin/bash -l
+#SBATCH -D /home/grmunjal/$1/data/parsed/demultiplexed//
+#SBATCH -o /home/grmunjal/$1/slurm-log/processcountsout-%j.txt
+#SBATCH -e /home/grmunjal/$1/slurm-log/processcountserr-%j.txt
+#SBATCH -J 6-detour
+#SBATCH --mem 24000
+
+set -e
+set -u
+
+
+base=$(pwd)/$1/data
+cd $base/parsed/demultiplexed/
+
+
+#-------------------- 3. Use "paste" in *nix to combine the alignment information from VerticalRefPos with all the "complete" files
+
+#Remove leading zeroes
+sed -i '' 's/\b\(0*\)//g' VerticalRefPos.uniq.txt.zpd
+
+wait
+
+
+paste VerticalRefPos.uniq.txt.zpd $1*snp.count*  > $1.MasterMatrix.txt
+
+wait
+
+split -l 108730 $1.MasterMatrix.txt segment
+
+
+exit
+

@@ -1,0 +1,104 @@
+#!/bin/bash -l
+#SBATCH -D /home/gitanshu/$1/data
+#SBATCH -o /home/gitanshu/$1/slurm-log/cluster-stdout-%j.txt
+#SBATCH -e /home/gitanshu/$1/slurm-log/cluster-stderr-%j.txt
+#SBATCH -J 3-cluster
+#SBATCH --mem 64000
+#SBATCH -c 24
+#SBATCH --threads-per-core 2
+
+set -e
+set -u
+
+#------------------------------- 
+# Author: Gitanshu Munjal
+# Affiliation: Brummer Lab, UC Davis 
+# Date: 7/29/2016
+#
+# Requirements (easiest to install most of these via homebrew): 
+# (1) GBS-SNP-CROP scripts (https://github.com/halelab/GBS-SNP-CROP)
+# (2) USEARCH (http://www.drive5.com/usearch/download.html)
+# (3) PEAR (http://sco.h-its.org/exelixis/web/software/pear/)
+# (4) BWA (http://bio-bwa.sourceforge.net)
+# (5) SAMtools (http://samtools.sourceforge.net)
+# (6) BlastToSam.jar
+# (7) Java
+# (8) Blast
+# (9) BEDtools
+#------------------------------- 
+
+
+#---------- Initialize: Set some paths and variables 
+
+#Base directory
+#Base directory
+home=$(pwd)
+base=$(pwd)/$1/data
+
+#Keyfile
+keyfile=$base/$1-key.txt
+
+#Path to reference
+refgen="/home/grmunjal/GenomeResources/RefGen/JCVI.Medtr.v4.20130313.fasta"
+cadl="/home/gitanshu/GenomeResources/CADL_HM342.v0.95P2.fasta"
+
+#Load requirements
+#module load trimmomatic/0.33
+#module load usearch/7.0.1090
+#module load pear/0.9.8
+#module load bwa/0.7.9a
+#module load samtools/1.2
+#module load java/1.8
+#module load blast/2.2.29
+#module load bedtools/2.25
+#----------#----------#----------#----------#----------#----------#----------#----------
+
+
+cd $base
+cd parsed
+ulimit -n 1024
+
+#---------- Step 4: Cluster reads and assemble the Mock Reference (https://github.com/halelab/GBS-SNP-CROP/wiki)
+cd demultiplexed/
+cp $home/bin/vsear* ./
+cp $home/bin/usear* ./
+chmod +x vsearc*
+chmod +x usear*
+
+perl $base/../code/1-SNPcalling/GBS-SNP-CROP-4_vsearch.pl \
+-d SE \
+-b $keyfile \
+-rl 100 \
+-pl 32 \
+-p 0.01 \
+-id 0.93 \
+-t 32 \
+-MR $1-95-allvsearch-Reference
+#----------#----------#----------#----------#----------#----------#----------#----------
+
+wait
+
+bwa index -a bwtsw $1-95-allvsearch-Reference.MockRef_Genome.fasta
+
+wait
+
+cp $1-95-allvsearch-Reference.MockRef_Clusters.fasta clust
+
+wait
+
+sed -i '' 's,centroid.*,Cluster,g' clust
+
+wait
+
+perl -pe 's/Cluster/$& . ++$n/ge' clust > clust2
+
+wait
+
+mv clust2 $1-95-allvsearch-Reference.MockRef_Clusters.fasta
+
+
+wait
+
+samtools faidx $1-95-allvsearch-Reference.MockRef_Genome.fasta
+
+wait

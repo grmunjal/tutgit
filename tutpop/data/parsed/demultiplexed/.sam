@@ -1,0 +1,2 @@
+@SQ	SN:MockRefGenome	LN:1656828
+@PG	ID:bwa	PN:bwa	VN:0.7.12-r1039	CL:bwa mem -t 16 -M tutpop-95-allvsearch-Reference.MockRef_Genome.fasta .R1.fastq

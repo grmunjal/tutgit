@@ -1,0 +1,15 @@
+cd
+
+popnamestar="tutpop"
+
+bash $popnamestar/code/1-SNPcalling/6-transform/6-transform-1  $popnamestar 1>>log/6-1-out.txt 2>>log/6-1-err.txt &
+
+wait
+
+bash $popnamestar/code/1-SNPcalling/6-transform/6-transform-2  $popnamestar 1>>log/6-2-out.txt 2>>log/6-2-err.txt &
+
+wait
+
+bash $popnamestar/code/1-SNPcalling/6-transform/6-transform-3  $popnamestar 1>>log/6-3-out.txt 2>>log/6-3-err.txt &
+
+wait

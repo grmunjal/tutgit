@@ -1,0 +1,56 @@
+#!/bin/bash -l
+
+#SBATCH -D /home/grmunjal/$1/data
+#SBATCH -o /home/grmunjal/$1/slurm-log/finalcounts-stdout-%j.txt
+#SBATCH -e /home/grmunjal/$1/slurm-log/finalcounts-stderr-%j.txt
+#SBATCH -J finalcounts
+#SBATCH --mem 24000
+
+
+set -e
+set -u
+
+#------------------------------- 
+# Author: Gitanshu Munjal
+# Affiliation: Brummer Lab, UC Davis 
+# Date: 7/29/2016
+#------------------------------- 
+
+
+#---------- Initialize: Set some paths and variables 
+
+#Base directory
+#Base directory
+home=$(pwd)
+base=$(pwd)/$1/data
+
+#Keyfile
+keyfile=$base/$1-key.txt
+cd $base/parsed/demultiplexed/SNPsCalled
+ulimit -n 8192
+
+
+##----------  Step 11: Prepare Count file
+cut -f11- SNPs_counts.txt > SNPs_counts-R1.txt
+awk -v OFS='\t' -F'\t' '{ print "SNP"FNR, $0}' SNPs_counts-R1.txt > SNPs_counts-R2.txt
+rm ./SNPs_counts-R1.txt
+
+sed -i '' 's,./.|,,g' SNPs_counts-R2.txt
+sed -i '' 's,.|,,g' SNPs_counts-R2.txt
+sed -i '' 's,-,0/0,g' SNPs_counts-R2.txt
+cat SNPs_counts-R2.txt  | tr '/' '\t' > SNPs_counts-R.txt
+rm ./SNPs_counts-R2.txt
+##----------#----------#----------#----------#----------#----------#----------#----------
+
+
+##----------  Step 9: Provide the cluster/centroid ID and other descriptors for all called SNPs (https:/github.com/halelab/GBS-SNP-CROP/wiki)
+
+perl $base/../code/1-SNPcalling/GBS-SNP-CROP-9.pl \
+-in SNPs_counts.txt \
+-out SNP_clustermap1 \
+-ref ../$1-95-allvsearch-Reference.MockRef_Clusters.fasta
+awk -v OFS='\t' -F'\t' '{ print "SNP"FNR, $0}' SNP_clustermap1.desc.txt > SNP_clustermap.desc.txt
+rm ./SNP_clustermap1.desc.txt
+##----------#----------#----------#----------#----------#----------#----------#----------
+
+

@@ -1,0 +1,15 @@
+
+cd
+popnamestar="tutpop"
+
+bash $popnamestar/code/1-SNPcalling/1-parsetrim $popnamestar 1>>log/1-out.txt 2>>log/1-err.txt &
+
+wait
+
+bash $popnamestar/code/1-SNPcalling/2-demultiplex $popnamestar 1>>log/2-out.txt 2>>log/2-err.txt &
+
+wait
+
+bash $popnamestar/code/1-SNPcalling/3-cluster $popnamestar 1>>log/3-out.txt 2>>log/3-err.txt &
+
+wait

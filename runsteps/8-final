@@ -1,0 +1,12 @@
+cd
+
+popnamestar="tutpop"
+
+bash $popnamestar/code/1-SNPcalling//8-finalCounts/8-finalcounts-1  $popnamestar 1>>log/8-1-out.txt 2>>log/8-1-err.txt &
+
+wait
+
+bash $popnamestar/code/1-SNPcalling//8-finalCounts/8-finalcounts-2  $popnamestar 1>>log/8-2-out.txt 2>>log/8-2-err.txt &
+
+wait
+

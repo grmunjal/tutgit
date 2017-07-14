@@ -1,0 +1,7 @@
+
+cd
+popnamestar="tutpop"
+
+bash $popnamestar/code/1-SNPcalling/4-align/4-align-seg1 $popnamestar 1>>log/4-1-out.txt 2>>log/4-1-err.txt &
+
+wait

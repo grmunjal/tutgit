@@ -1,0 +1,27 @@
+#!/bin/bash -l
+#SBATCH -D /home/grmunjal/$1/data/parsed/demultiplexed/
+#SBATCH -o /home/grmunjal/$1/slurm-log/processcountsout-%j.txt
+#SBATCH -e /home/grmunjal/$1/slurm-log/processcountserr-%j.txt
+#SBATCH -J 2-$1
+#SBATCH -c 24
+#SBATCH --mem=48000
+
+set -e
+set -u
+
+
+base=$(pwd)/$1/data
+cd $base/parsed/demultiplexed/
+
+##Join files
+count=0
+NR_CPUS=12
+
+for file in $1*.zpdc
+do
+join -a1 -j 2 -o 2.4 -e "_,_,_,_," VerticalRefPos*zpd $file > $file.snp.count.txt &
+let count+=1
+[[ $((count%NR_CPUS)) -eq 0 ]] && wait
+done
+
+wait

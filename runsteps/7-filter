@@ -1,0 +1,15 @@
+cd
+
+popnamestar="tutpop"
+
+bash $popnamestar/code/1-SNPcalling/7-filterMaster/7-filter-1  $popnamestar 1>>log/7-1-out.txt 2>>log/7-1-err.txt &
+
+wait
+
+bash $popnamestar/code/1-SNPcalling/7-filterMaster/7-filter-2  $popnamestar 1>>log/7-2-out.txt 2>>log/7-2-err.txt &
+
+wait
+
+bash $popnamestar/code/1-SNPcalling/7-filterMaster/7-filter-3  $popnamestar 1>>log/7-3-out.txt 2>>log/7-3-err.txt &
+
+wait

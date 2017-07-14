@@ -1,0 +1,62 @@
+
+cd
+popnamestar="tutpop"
+
+bash $popnamestar/code/1-SNPcalling/4-align/4-align-seg1 $popnamestar 1>>log/4-1-out.txt 2>>log/4-1-err.txt &
+bash $popnamestar/code/1-SNPcalling/4-align/4-align-seg2 $popnamestar 1>>log/4-2-out.txt 2>>log/4-2-err.txt &
+bash $popnamestar/code/1-SNPcalling/4-align/4-align-seg3 $popnamestar 1>>log/4-3-out.txt 2>>log/4-3-err.txt &
+
+wait
+
+bash $popnamestar/code/1-SNPcalling/4-align/4-align-seg4 $popnamestar 1>>log/4-4-out.txt 2>>log/4-4-err.txt &
+bash $popnamestar/code/1-SNPcalling/4-align/4-align-seg5 $popnamestar 1>>log/4-5-out.txt 2>>log/4-5-err.txt &
+bash $popnamestar/code/1-SNPcalling/4-align/4-align-seg6 $popnamestar 1>>log/4-6-out.txt 2>>log/4-6-err.txt &
+
+wait
+
+bash $popnamestar/code/1-SNPcalling/4-align/4-align-seg7 $popnamestar 1>>log/4-7-out.txt 2>>log/4-7-err.txt &
+bash $popnamestar/code/1-SNPcalling/4-align/4-align-seg8 $popnamestar 1>>log/4-8-out.txt 2>>log/4-8-err.txt &
+bash $popnamestar/code/1-SNPcalling/4-align/4-align-seg9 $popnamestar 1>>log/4-9-out.txt 2>>log/4-9-err.txt &
+
+wait
+
+bash $popnamestar/code/1-SNPcalling/4-align/4-align-seg10 $popnamestar 1>>log/4-10-out.txt 2>>log/4-10-err.txt &
+bash $popnamestar/code/1-SNPcalling/4-align/4-align-seg11 $popnamestar 1>>log/4-11-out.txt 2>>log/4-11-err.txt &
+bash $popnamestar/code/1-SNPcalling/4-align/4-align-seg12 $popnamestar 1>>log/4-12-out.txt 2>>log/4-12-err.txt &
+
+wait
+
+bash $popnamestar/code/1-SNPcalling/4-align/4-align-seg13 $popnamestar 1>>log/4-13-out.txt 2>>log/4-13-err.txt &
+bash $popnamestar/code/1-SNPcalling/4-align/4-align-seg14 $popnamestar 1>>log/4-14-out.txt 2>>log/4-14-err.txt &
+bash $popnamestar/code/1-SNPcalling/4-align/4-align-seg15 $popnamestar 1>>log/4-15-out.txt 2>>log/4-15-err.txt &
+
+wait
+
+bash $popnamestar/code/1-SNPcalling/4-align/4-align-seg16 $popnamestar 1>>log/4-16-out.txt 2>>log/4-16-err.txt &
+bash $popnamestar/code/1-SNPcalling/4-align/4-align-seg17 $popnamestar 1>>log/4-17-out.txt 2>>log/4-17-err.txt &
+bash $popnamestar/code/1-SNPcalling/4-align/4-align-seg18 $popnamestar 1>>log/4-18-out.txt 2>>log/4-18-err.txt &
+
+wait
+
+bash $popnamestar/code/1-SNPcalling/4-align/4-align-seg19 $popnamestar 1>>log/4-19-out.txt 2>>log/4-19-err.txt &
+bash $popnamestar/code/1-SNPcalling/4-align/4-align-seg20 $popnamestar 1>>log/4-20-out.txt 2>>log/4-20-err.txt &
+bash $popnamestar/code/1-SNPcalling/4-align/4-align-seg21 $popnamestar 1>>log/4-21-out.txt 2>>log/4-21-err.txt &
+
+wait
+
+bash $popnamestar/code/1-SNPcalling/4-align/4-align-seg22 $popnamestar 1>>log/4-22-out.txt 2>>log/4-22-err.txt &
+bash $popnamestar/code/1-SNPcalling/4-align/4-align-seg23 $popnamestar 1>>log/4-23-out.txt 2>>log/4-23-err.txt &
+bash $popnamestar/code/1-SNPcalling/4-align/4-align-seg24 $popnamestar 1>>log/4-24-out.txt 2>>log/4-24-err.txt &
+
+wait
+
+bash $popnamestar/code/1-SNPcalling/4-align/4-align-seg25 $popnamestar 1>>log/4-25-out.txt 2>>log/4-25-err.txt &
+bash $popnamestar/code/1-SNPcalling/4-align/4-align-seg26 $popnamestar 1>>log/4-26-out.txt 2>>log/4-26-err.txt &
+bash $popnamestar/code/1-SNPcalling/4-align/4-align-seg27 $popnamestar 1>>log/4-27-out.txt 2>>log/4-27-err.txt &
+
+wait
+
+bash $popnamestar/code/1-SNPcalling/4-align/4-align-seg28 $popnamestar 1>>log/4-28-out.txt 2>>log/4-28-err.txt &
+bash $popnamestar/code/1-SNPcalling/4-align/4-align-seg29 $popnamestar 1>>log/4-29-out.txt 2>>log/4-29-err.txt &
+
+wait

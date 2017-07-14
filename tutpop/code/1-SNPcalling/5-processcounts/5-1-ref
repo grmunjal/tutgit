@@ -1,0 +1,63 @@
+#!/bin/bash -l
+#SBATCH -D /home/grmunjal/$1/data/parsed/demultiplexed/
+#SBATCH -o /home/grmunjal/$1/slurm-log/processcountsout-%j.txt
+#SBATCH -e /home/grmunjal/$1/slurm-log/processcountserr-%j.txt
+#SBATCH -J 2-start
+#SBATCH -c 6
+
+set -e
+set -u
+
+
+
+base=$(pwd)/$1/data
+
+
+cd $base/parsed/demultiplexed/
+
+rm *bam*
+
+wait
+
+rm *mpileup*
+
+wait
+
+rm $1*sam
+
+wait
+
+cat *.ref.txt | uniq > VerticalRefPos.txt
+
+wait
+
+#-------------------- 1. Sort all count files and the VerticalRefPos in *nix:
+#sort -n --parallel=15 -k 2 -o VerticalRefPos.txt VerticalRefPos.txt
+sort -n -k 2 -o VerticalRefPos.txt VerticalRefPos.txt
+
+
+#--- Problem 1: Why are there more entries in bash matrix compared to the perl hash
+#Answer: There are redundant entries in VerticalRefPos.txt
+
+#Verify redundancy by wc -l before and after uniq
+
+#Before
+wc -l VerticalRefPos.txt
+
+#Remove redundants
+cat VerticalRefPos.txt | uniq > VerticalRefPos.uniq.txt
+
+#After
+wc -l VerticalRefPos.uniq.txt
+
+#sort -n --parallel=15 -k 2 -o VerticalRefPos.uniq.txt VerticalRefPos.uniq.txt
+sort -n -k 2 -o VerticalRefPos.uniq.txt VerticalRefPos.uniq.txt
+
+wait
+
+#Zero pad VerticalRef (remove previous versions)
+awk '{$2=sprintf("%09d", $2); print $0}' VerticalRefPos.uniq.txt > VerticalRefPos.uniq.txt.zpd
+
+wait
+
+

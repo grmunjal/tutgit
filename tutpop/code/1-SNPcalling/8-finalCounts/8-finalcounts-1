@@ -1,0 +1,32 @@
+#!/bin/bash -l
+
+#SBATCH -D /home/grmunjal/$1/data
+#SBATCH -o /home/grmunjal/$1/slurm-log/finalcounts-stdout-%j.txt
+#SBATCH -e /home/grmunjal/$1/slurm-log/finalcounts-stderr-%j.txt
+#SBATCH -J finalcounts
+#SBATCH --mem 24000
+
+set -e
+set -u
+
+#------------------------------- 
+# Author: Gitanshu Munjal
+# Affiliation: Brummer Lab, UC Davis 
+# Date: 7/29/2016
+#------------------------------- 
+
+
+#---------- Initialize: Set some paths and variables 
+
+#Base directory
+#Base directory
+home=$(pwd)
+base=$(pwd)/$1/data
+
+#Keyfile
+keyfile=$base/$1-key.txt
+cd $base/parsed/demultiplexed/SNPsCalled
+ulimit -n 8192
+
+
+cat segmenta[a-z]*.filtered.txt segmentb[a-z]*.filtered.txt segmentc[a-z]*.filtered.txt segmentd[a-z]*.filtered.txt segmente[a-z]*.filtered.txt segmentf[a-z]*.filtered.txt > SNPs_counts.txt
