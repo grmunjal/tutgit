@@ -61,7 +61,11 @@ cd
 
 
 #Get everything
-wget https://github.com/grmunjal/tutgit/
+git clone https://github.com/grmunjal/tutgit/
+
+
+#Move everything
+mv tutgit/* ./
 
 
 #Navigate to log folder
