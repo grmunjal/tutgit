@@ -61,9 +61,9 @@ ulimit -n 1024
 #---------- Step 4: Cluster reads and assemble the Mock Reference (https://github.com/halelab/GBS-SNP-CROP/wiki)
 cd demultiplexed/
 cp $home/bin/vsear* ./
-cp $home/bin/usear* ./
+
 chmod +x vsearc*
-chmod +x usear*
+
 
 perl $base/../code/1-SNPcalling/GBS-SNP-CROP-4_vsearch.pl \
 -d SE \
