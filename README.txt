@@ -14,9 +14,18 @@ Here I use:
 			
 
 Note: 
-A lot of intermediate files are created during the following process. I did not write commands to clean these up as I needed to
-go back a step or two sometimes during this implementation.
+A lot of intermediate files are created during the following process. I did not write commands to clean these up as I needed to go back a step or two sometimes during this implementation.
+
+Another note:
+A lot of the custom bash commands use in-place sed and are written like so:
+sed -i '' 's,replaceme,withthis,g' file
+
+On other systems this might not work and will need to change to something like so:
+sed -i 's,replaceme,withthis,g' file
    
+
+
+
 
 
 #---------- Requirements (and how to get them) ----------#
@@ -51,6 +60,9 @@ jar file provided in  the bin folder
 
 
 
+
+
+
 #---------- Goal ----------#
 
 m x 2n table of read counts; m markers, n individuals (or samples), 2 alleles per individual
@@ -58,6 +70,9 @@ m x 2n table of read counts; m markers, n individuals (or samples), 2 alleles pe
 like so:
 
 marker1 ind.1a1count ind.1a2count.....ind.na1count ind.na2count 
+
+
+
 
 
 
@@ -124,12 +139,6 @@ MockRefGenome	1165714	T	9.75	T	A	80.00	0	4	0	T/A|3/3	T/A|8/3	T/A|9/4	T/A|4/5	-|5
 
 
 
-#Note:
-A lot of the custom bash commands use in-place sed and are written like so:
-sed -i '' 's,replaceme,withthis,g' file
-
-On other systems this might not work and will need to change to something like so:
-sed -i 's,replaceme,withthis,g' file
 
 
 
